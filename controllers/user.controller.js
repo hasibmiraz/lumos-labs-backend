@@ -20,3 +20,14 @@ exports.createUser = async (req, res) => {
     .status(201)
     .send({ success: true, message: 'User created successfully' });
 };
+
+exports.deletUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findByIdAndDelete(id);
+  if (user)
+    return res
+      .status(201)
+      .send({ success: true, message: 'User deleted successfully' });
+
+  return res.status(401).send({ success: false, message: 'No user found' });
+};
